@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm
 from cart.forms import CartAddProductForm
 from .models import Category, Product
 from orders.models import Order, OrderItem
@@ -59,4 +59,22 @@ def product_detail(request, id, slug):
     cart_product_form = CartAddProductForm()
     return render(request, 'main/product/detail.html', {'product': product,
                                                         'cart_product_form': cart_product_form})
+
+@login_required
+def profile(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        if u_form.is_valid():
+            u_form.save()
+            messages.success(request, f'Ваш профиль успешно обновлен.')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+
+    context = {
+        'u_form': u_form,
+    }
+
+    return render(request, 'main/profile.html', context)
 

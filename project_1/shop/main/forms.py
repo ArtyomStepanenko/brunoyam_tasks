@@ -6,11 +6,18 @@ from django.core.validators import RegexValidator
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone = forms.CharField(validators=[phone_regex], max_length=17)
     first_name = forms.CharField(max_length=35)
     last_name = forms.CharField(max_length=35)
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'phone', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+    first_name = forms.CharField(max_length=35)
+    last_name = forms.CharField(max_length=35)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']

@@ -25,8 +25,11 @@ urlpatterns = [
     path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
     path('orders/', include(('orders.urls', 'orders'), namespace='orders')),
     path('register/', main_views.register, name='register'),
+    path('profile/', main_views.profile, name='profile'),
     path('login/', auth_views.LoginView.as_view(template_name='main/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='main/logout.html'), name='logout'),
+    path('password-change/', auth_views.PasswordChangeView.as_view(template_name='main/password_change_form.html'), name='password_change'),
+    path('password-change/done/', auth_views.PasswordChangeDoneView.as_view(template_name='main/password_change_done.html'), name='password_change_done'),
     path('', include(('main.urls', 'main'), namespace='main')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

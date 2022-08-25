@@ -24,6 +24,9 @@
       <div class="navbar-nav">
         <a class="nav-link active" aria-current="page" href="/main">Главная страница</a>
         <a class="nav-link" href="/cart">Корзина</a>
+        {% if user.is_authenticated %}
+        <a class="nav-link" href="/profile">Личный кабинет</a>
+        {% endif %}
       </div>
     </div>
   </div>
